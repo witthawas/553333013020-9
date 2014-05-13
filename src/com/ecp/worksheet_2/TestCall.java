@@ -1,13 +1,18 @@
 package com.ecp.worksheet_2;
 
+import java.util.Arrays;
+
+
 public class TestCall {
+
 	public static void main(String[] args) {
-		BinaryHeap bhp = new BinaryHeap();
-		bhp.enQueue(10);
-		bhp.enQueue(20);
-		bhp.enQueue(30);
-		System.out.println(bhp);
-      }
+		Car[] CarArrays = new Car[] {
+				new Car("Mazda","Mazda2",480000),
+				new Car("Toyota","Vios",540000)};
+				Arrays.sort(CarArrays);
+				System.out.println(Arrays.toString(CarArrays));
+
+	}
 }
 
 

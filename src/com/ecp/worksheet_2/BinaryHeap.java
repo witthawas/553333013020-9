@@ -14,15 +14,25 @@ public class BinaryHeap {
 	}
 
 	public Object deQueue() {
+		Object max = peek();
+		size--;
+		elementData[0] = elementData[size];
+		elementData[size] = null;
+		if (size > 1) {
+			fixDown(0);
+		}
+		return max;
+	}
 
-		return 0;
+	public Object peek() {
+		return elementData[0];
 	}
 
 	@Override
 	public String toString() {
 		Object arr[] = new Object[size];
 		for (int i = 0; i < size; i++) {
-			arr[i] = elementData[i]; 
+			arr[i] = elementData[i];
 		}
 		return Arrays.toString(arr);
 	}
@@ -40,7 +50,7 @@ public class BinaryHeap {
 	private void fixUp(int k) {
 		while (k > 0) {
 			int p = (k - 1) / 2;
-			if(!greatherThan(k, p)){
+			if (!greatherThan(k, p)) {
 				break;
 			}
 			swap(k, p);
@@ -49,24 +59,47 @@ public class BinaryHeap {
 
 	}
 
-	private void swap(int k, int p) {
-			Object arr[] = new Object[elementData.length];
-			for (int i = 0; i < size; i++) {
-				arr[i] = elementData[i];
-			}
-
-			arr[p] = elementData[k];
-			arr[k] = elementData[p];
-
-			elementData = arr;
+	private void fixDown(int k) {
+		int c;
+		while ((c = 2 * k + 1) < size) {
+			if (c + 1 < size && greatherThan(c + 1, c))
+				c++;
+			if (!greatherThan(c, k))
+				break;
+			swap(k, c);
+			k = c;
+		}
 	}
+
+	private void swap(int k, int p) {
+		Object a = elementData[k];
+		Object b = elementData[p];
+		elementData[p] = a;
+		elementData[k] = b;
+	}
+
 	private boolean greatherThan(int k, int p) {
-		Comparable<Object> d = (Comparable)elementData[k];
-		if (d.compareTo(elementData[p]) > 0) {
+		Comparable<Object> d = (Comparable) elementData[k];
+		if (d.compareTo(elementData[p]) >= 0) {
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	public static void heapSort(Object[] data) {
+		BinaryHeap h = new BinaryHeap();
+		h.elementData = data;
+		h.size = data.length;
+
+		for (int i = h.size - 1; i >= 0; i--) {
+			h.fixDown(i);
+		}
+
+		for (int i = h.size - 1; i >= 0; i--) {
+			data[i] = h.deQueue();
+		}
+
 	}
 
 }

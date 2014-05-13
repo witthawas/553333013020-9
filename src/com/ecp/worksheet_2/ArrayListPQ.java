@@ -15,7 +15,7 @@ public class ArrayListPQ {
 		private int maxIndex() {
 		       int max = 0;
 		       for (int i = 0; i < lst.getSize(); i++) {
-		                 Comparable<Object> d = (Comparable<Object>) lst.set(i);
+		                 Comparable d = (Comparable) lst.set(i);
 		                 Object maxObj = lst.set(max);
 		                 if (d.compareTo(maxObj) > 0) {
 		                            max = i;
